@@ -15,12 +15,12 @@ var results = from x in Skills
 			  	Discription = x.Description,
 				Employees = (from y in EmployeeSkills
 							 where y.Skill.SkillID == x.SkillID
-							 select new
-				             {
+							 select new{
+				             
 							 	Name = y.Employee.FirstName + " " + y.Employee.LastName,
 								Level = y.Level,
 								YearsOfExperience = y.YearsOfExperience
-							 }
+							           }
 							 )
 			   };
 results.Dump();
@@ -42,4 +42,21 @@ var results = from x in Skills
 results.Dump();
 
 //Question 4.
-var results = 
+var results = from x in Shifts
+			  group x by x.DayOfWeek into y
+			  orderby y.Key
+			  select new{
+			  				Day = y.Key,
+							EmployeeNeeded = y.Sum(g => g.NumberOfEmployees)
+					    };
+results.Dump();
+
+//Question 5
+var maxYears = EmployeeSkills.Select(y => y.YearsOfExperience).Max();
+var maxYear = EmployeeSkills.Max(a => a.YearsOfExperience);
+var results = from x in EmployeeSkills
+			where x.YearsOfExperience == EmployeeSkills.Max(a => a.YearsOfExperience)
+			select new{
+							Name = x.Employee.FirstName + " " + x.Employee.LastName
+					   };
+results.Dump();
