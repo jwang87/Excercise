@@ -56,6 +56,7 @@ var maxYears = EmployeeSkills.Select(y => y.YearsOfExperience).Max();
 var maxYear = EmployeeSkills.Max(a => a.YearsOfExperience);
 var results = from x in EmployeeSkills
 			where x.YearsOfExperience == EmployeeSkills.Max(a => a.YearsOfExperience)
+			orderby x.Employee.LastName
 			select new{
 							Name = x.Employee.FirstName + " " + x.Employee.LastName
 					   };
