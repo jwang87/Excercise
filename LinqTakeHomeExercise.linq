@@ -34,22 +34,24 @@ var results = from x in Skills
 results.Dump();
 
 //Question 3.
-var results = from x in Skills
+var results = (from x in Skills
 			  where x.EmployeeSkills.Count() == 0
 			  select new{
 			  				Description = x.Description
-						};
+						});
 results.Dump();
 
 //Question 4.
 var results = from x in Shifts
+			  where x.PlacementContract.Location.Name.Contains("NAIT")
 			  group x by x.DayOfWeek into y
 			  orderby y.Key
 			  select new{
-			  				Day = y.Key,
+			  				Day = Enum.GetName(typeof(DayOfWeek), y.Key),
 							EmployeeNeeded = y.Sum(g => g.NumberOfEmployees)
 					    };
 results.Dump();
+
 
 //Question 5
 var maxYears = EmployeeSkills.Select(y => y.YearsOfExperience).Max();
