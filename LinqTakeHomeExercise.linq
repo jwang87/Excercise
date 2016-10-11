@@ -15,6 +15,7 @@ var results = from x in Skills
 			  	Discription = x.Description,
 				Employees = (from y in EmployeeSkills
 							 where y.Skill.SkillID == x.SkillID
+							 orderby y.YearsOfExperience descending
 							 select new{
 				             
 							 	Name = y.Employee.FirstName + " " + y.Employee.LastName,
