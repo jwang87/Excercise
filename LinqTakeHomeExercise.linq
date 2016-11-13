@@ -53,6 +53,13 @@ var results = from x in Shifts
 					    };
 results.Dump();
 
+var results = from x in Shifts
+			  where x.PlacementContract.Location.Name.Contains("NAIT")
+			  group x by x.DayOfWeek into y
+			  orderby y.Key
+			  select y;
+results.Dump();
+
 
 //Question 5
 var maxYears = EmployeeSkills.Select(y => y.YearsOfExperience).Max();
